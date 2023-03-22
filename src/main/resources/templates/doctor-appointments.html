@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<table>
+    <thead>
+        <tr>
+            <th>Patient Name</th>
+            <th>Appointment Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="appointment : ${appointments}">
+            <td th:text="${appointment.patname}"></td>
+            <td th:text="${appointment.appointmentTime}"></td>
+           <td>  <form th:action="@{doctor/deleteAppointment}" method="post">
+                    <input type="hidden" name="id" th:value="${appointment.id}" />
+                    <button type="submit">Cancel Appointment</button>
+                </form></a></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

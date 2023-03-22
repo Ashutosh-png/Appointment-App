@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+  <h1>Doctor Users</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${doctoruser}">
+                <td th:text="${user.username}"></td>
+                 <td>
+                    <form th:action="@{/patient/bookAppointment}" method="post">
+                        <input type="hidden" name="doctorUsername" th:value="${user.username}">
+                        <input type="datetime-local" name="appointmentTime">
+                        <button type="submit">Book Appointment</button>
+                         
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+   
+    
+</body>
+</html>

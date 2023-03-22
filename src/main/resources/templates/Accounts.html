@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+accounts
+	<a href="/logout">logout</a>
+
+
+<h1>User Accounts</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Role</th>
+                                <th>Action</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.role}"></td>
+              <td>  <form method="POST" th:action="@{/admin/delete-user/{id}(id=${user.id})}">
+            <input type="submit" value="Delete" />
+        </form></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
