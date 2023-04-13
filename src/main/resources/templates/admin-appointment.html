@@ -2,24 +2,101 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Manage Appointments</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+        <style>
+#head{
+    text-align: center;
+    padding: 20px;
+    font-size: 36px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+
+
+}
+
+ #head span {
+    color: #f9ca24;
+  }
+
+
+
+</style>
+        
 </head>
 <body>
- <h1>Your Appointments</h1>
-  <table>
-    <thead>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+              
+               
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+        
+          
+        
+        
+        
+          
+                <button class="btn btn-outline-success" type="button" ><a href="/logout" style="text-decoration: none; color: inherit;">logout</a></button>
+            </form>
+        </div>
+    </nav>
+    
+     <h1 id="head">Manage Appointments</h1>
+   
+  <table class="table">
+    <thead class="thead-dark">
       <tr>
-        <th>Doctor</th>
-        <th>Appointment Time</th>
+        <th scope="col">Doctor</th>
+        <th scope="col">Appointment Time</th>
+        <th scope="col">Action</th>
       </tr>
-    </thead>
+    </thead  >
     <tbody>
       <tr th:each="appointment : ${appointment}">
         <td th:text="${appointment.docname}"></td>
         <td th:text="${appointment.appointmentTime}"></td>
         <td>  <form th:action="@{/patient/deleteAppointment}" method="post">
                     <input type="hidden" name="id" th:value="${appointment.id}" />
-                    <button type="submit">Cancel Appointment</button>
+                    <button type="submit"  class="btn btn-danger">Cancel Appointment</button>
                 </form></a></td>
       </tr>
     </tbody>
