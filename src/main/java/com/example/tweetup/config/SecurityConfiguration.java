@@ -55,7 +55,7 @@ public class SecurityConfiguration {
 	    	
 	    	http
             .authorizeHttpRequests()
-                .requestMatchers("/resources/**", "/registration", "/about").permitAll()
+                .requestMatchers("/resources/**", "/registration", "/about","/forgot-pass","/change-pass").permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                 .requestMatchers("/doctor/**").hasAuthority("DOCTOR")
                 .requestMatchers("/patient/**").hasAuthority("PATIENT")
@@ -70,7 +70,9 @@ public class SecurityConfiguration {
             .logoutUrl("/logout")
             .logoutSuccessUrl("/login?logout")
 
-                .permitAll();
+                .permitAll()
+                .and()
+                .csrf().disable();
 	    	
 			return http.build();
 

@@ -95,4 +95,10 @@ public class UserDetailsServiceImpl implements UserService {
 		return repo.findByUsername(name);
 	}
 
+	public void save(User user) {
+		repo.save(user);
+		// TODO Auto-generated method stub
+		
+	}
+
 }
