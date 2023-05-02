@@ -77,6 +77,8 @@ public class UserRegistrationController {
 		try {
 		    User user = service.getByUsername(name);
 		    if(user!=null) {
+		        redirectAttributes.addFlashAttribute("message", "Username already exists");
+
 		        return "redirect:/registration";
 		    }
 		    service.save(userregistrationDto);

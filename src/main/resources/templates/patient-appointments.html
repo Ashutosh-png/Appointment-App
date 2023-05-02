@@ -63,7 +63,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/patient/dashboard">Home <span class="sr-only">(current)</span></a>
                 </li>
               
                
@@ -99,8 +99,10 @@
     <thead  class="thead-dark">
       <tr>
         <th  scope="col">Doctor</th>
-        <th>  scope="col"Appointment Time</th>
+        <th>  Appointment Time</th>
                 <th  scope="col">Actions</th>
+                                <th  scope="col">Actions</th>
+                
                                 
                 
         
@@ -114,9 +116,12 @@
                     <input type="hidden" name="id" th:value="${appointment.id}" />
                     <button type="submit" class="btn btn-danger">Cancel Appointment</button>
                 </form></a></td>  
+                 <td>  <form th:action="@{/patient/updateAppointment}" method="post">
+                    <input type="hidden" name="id" th:value="${appointment.id}" />
+                    <button type="submit" class="btn btn-danger">Reschedule Appointment</button>
+                </form></a></td>  
       </tr>
     </tbody>
   </table>
-  <center><p><h3 id="reschedule" style= color:red;>To reschedule your appointment contact 8379810006 or Email us on ashutosh.tweeetup@gmail.com</h3></p></center>
 </body>
 </html>

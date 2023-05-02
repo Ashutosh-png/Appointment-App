@@ -55,7 +55,7 @@ public class SecurityConfiguration {
 	    	
 	    	http
             .authorizeHttpRequests()
-                .requestMatchers("/resources/**", "/registration", "/about","/forgot-pass","/change-pass").permitAll()
+                .requestMatchers("/resources/**", "/registration", "/about","/forgot-pass","/change-pass","/register").permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                 .requestMatchers("/doctor/**").hasAuthority("DOCTOR")
                 .requestMatchers("/patient/**").hasAuthority("PATIENT")

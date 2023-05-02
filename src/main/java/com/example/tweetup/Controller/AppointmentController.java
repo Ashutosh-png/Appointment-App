@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.tweetup.Services.AppointmentService;
@@ -52,7 +54,8 @@ public class AppointmentController {
 	    appointment.setPatname(patient.getUsername());
 	    aser.save(appointment);
 
-	    return "redirect:/patient/appointments";
+	  //  return "redirect:/patient/appointments";
+	    return "redirect:/patient/payment";
 	}
 
 	
@@ -90,12 +93,41 @@ public class AppointmentController {
 	
 	}
 	
+	
+	@RequestMapping("patient/updateAppointment")
+	public String patientupdateAppointment(@RequestParam("id") Long id, Model model) {
+		Appointment appointment = aser.findById(id);
+		model.addAttribute("appointment",appointment);
+		    
+		    return "patient-update-appointment";
+	
+	}
+	
+	
+	@PostMapping("/patient/update")
+	public String updateAppointment(@ModelAttribute("appointment") Appointment appointment) {
+		aser.save(appointment);
+		return "redirect:/patient/appointments";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	@GetMapping("/admin/appointments")
 	public String adminappointment(Model model) {
 		List<Appointment> appointment = aser.showall();
 		model.addAttribute("appointment", appointment);
 		return "admin-appointment";
 	}
+	
+	  @GetMapping("patient/payment")
+	    public String paymentPage() {
+	    	return "payment";
+	    }
 
 
 
