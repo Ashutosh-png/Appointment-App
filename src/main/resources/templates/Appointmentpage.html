@@ -38,6 +38,7 @@
 </style>
 </head>
 <body>
+ 
 
  <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Navbar</a>
@@ -80,7 +81,15 @@
         </div>
     </nav>
     
-  <h1 id="head">Book Appointment</h1>
+    <!-- Inside your bookAppointment.html template -->
+
+    
+    
+  <h1 id="head">Book Appointments</h1>
+  
+  <div th:if="${error}" class="alert alert-danger">
+    <p th:text="${error}"></p>
+</div>
     <table  class="table">
         <thead class="thead-dark">
             <tr>
@@ -94,7 +103,7 @@
             <tr th:each="user : ${doctoruser}">
                 <td th:text="${user.username}"></td>
                  <td>
-                    <form th:action="@{/patient/bookAppointment}" method="post">
+                    <form th:action="@{/patient/bookAppointments}" method="post">
                         <input type="hidden" name="doctorUsername" th:value="${user.username}">
                         <input type="datetime-local" name="appointmentTime" required="required">
                         <button type="submit" class="btn btn-success">Book Appointment</button>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.tweetup.Services.AppointmentService;
 import com.example.tweetup.Services.UserDetailsServiceImpl;
@@ -39,10 +40,10 @@ public class AppointmentController {
 		return "Appointmentpage";
 	}
 	
-	@PostMapping("/patient/bookAppointment")
+	@PostMapping("/patient/bookAppointments")
 	public String bookAppointment(@RequestParam("doctorUsername") String doctorUsername,
 	                              @RequestParam("appointmentTime") LocalDateTime appointmentTime,
-	                              Principal principal) {
+	                              Principal principal,Model model) {
 	    User patient = ser.getByUsername(principal.getName());
 	    User doctor = ser.getByUsername(doctorUsername);
 
@@ -52,10 +53,21 @@ public class AppointmentController {
 	    appointment.setPatientId(patient.getId());
 	    appointment.setDocname(doctor.getUsername());
 	    appointment.setPatname(patient.getUsername());
-	    aser.save(appointment);
+	    
+	    
+	    try {
+	        aser.save(appointment);
+	    } catch (IllegalArgumentException e) {
+	    	 model.addAttribute("error", "This time is not available");
+	        return "Appointmentpage"; // Redirect to an error page or a page showing the alert
+	    }
+
+	    // Continue with the normal flow
+	    return "redirect:/patient/payment";
+	   // aser.save(appointment);
 
 	  //  return "redirect:/patient/appointments";
-	    return "redirect:/patient/payment";
+	  //  return "redirect:/patient/payment";
 	}
 
 	

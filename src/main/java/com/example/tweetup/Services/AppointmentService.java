@@ -1,5 +1,6 @@
 package com.example.tweetup.Services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,12 @@ public class AppointmentService {
 	AppointmentRepo repo;
 
 	public void save(Appointment appointment) {
+		
+		if(isAppointmentTimeOverlapping(appointment)) {
+			 throw new IllegalArgumentException("Appointment time overlaps with existing appointments.");
+		}
+		
+		
 		repo.save(appointment);
 		
 	}
@@ -43,6 +50,27 @@ public class AppointmentService {
 		// TODO Auto-generated method stub
 		return repo.findById(id).orElse(null);
 	}
+	
+	
+	 private boolean isAppointmentTimeOverlapping(Appointment newAppointment) {
+	        List<Appointment> existingAppointments = repo.findByDoctorId(newAppointment.getDoctorId());
+
+	        for (Appointment appointment : existingAppointments) {
+	            LocalDateTime existingStartTime = appointment.getAppointmentTime();
+	            LocalDateTime existingEndTime = existingStartTime.plusHours(1);
+
+	            LocalDateTime newStartTime = newAppointment.getAppointmentTime();
+	            LocalDateTime newEndTime = newStartTime.plusHours(1);
+
+	            // Check for overlap condition
+	            if (newStartTime.isBefore(existingEndTime) && existingStartTime.isBefore(newEndTime)) {
+	                return true; // Overlapping appointment found
+	            }
+	        }
+
+	        return false; // No overlapping appointments found
+	    }
+
 
 
 	
