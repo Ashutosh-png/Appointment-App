@@ -36,8 +36,15 @@
    
 </style>
 <body>
-
+  <div th:if="${errors}">
+                           <p    class="alert alert-danger"     th:text="${errors}"></p>
+                            </div>
 <h1 style="text-align:center; font-weight:bold;">Reschedule Appointment</h1>
+                          <div th:if="${error}">
+                           <p    class="alert alert-danger"     th:text="${error}"></p>
+                            </div>
+                           
+                            
 
 <form method="post" th:action="@{/patient/update}" th:object="${appointment}">
   <div class="form-group">

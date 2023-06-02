@@ -57,13 +57,17 @@ public class AppointmentController {
 	    
 	    try {
 	        aser.save(appointment);
+	        return "redirect:/patient/payment";
 	    } catch (IllegalArgumentException e) {
 	    	 model.addAttribute("error", "This time is not available");
-	        return "Appointmentpage"; // Redirect to an error page or a page showing the alert
+	    	  // Redirect to an error page or a page showing the alert
+	    	 List<User> doctoruser = ser.findUserByRole("DOCTOR");
+	 		model.addAttribute("doctoruser", doctoruser);
+	 		return "Appointmentpage";
 	    }
 
 	    // Continue with the normal flow
-	    return "redirect:/patient/payment";
+	   
 	   // aser.save(appointment);
 
 	  //  return "redirect:/patient/appointments";
@@ -116,10 +120,22 @@ public class AppointmentController {
 	}
 	
 	
-	@PostMapping("/patient/update")
-	public String updateAppointment(@ModelAttribute("appointment") Appointment appointment) {
-		aser.save(appointment);
-		return "redirect:/patient/appointments";
+	@RequestMapping("/patient/update")
+	public String updateAppointment(@ModelAttribute("appointment") Appointment appointment,RedirectAttributes redirectAttributes,Model model) {
+		try {
+			aser.save(appointment);
+			return "redirect:/patient/appointments";
+		}catch (Exception e) {
+			// TODO: handle exception
+	        
+	        model.addAttribute("error", "Please select a valid times");
+	        model.addAttribute("appointment", appointment);
+			return "patient-update-appointment";
+
+
+		}
+		
+		
 	}
 	
 	

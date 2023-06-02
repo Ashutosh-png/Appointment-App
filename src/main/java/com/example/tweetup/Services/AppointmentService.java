@@ -17,6 +17,12 @@ public class AppointmentService {
 
 	public void save(Appointment appointment) {
 		
+		 LocalDateTime currentDateTime = LocalDateTime.now();
+		    
+		    if (appointment.getAppointmentTime().isBefore(currentDateTime)) {
+		        throw new IllegalArgumentException("Appointment time cannot be in the past.");
+		    }
+		
 		if(isAppointmentTimeOverlapping(appointment)) {
 			 throw new IllegalArgumentException("Appointment time overlaps with existing appointments.");
 		}

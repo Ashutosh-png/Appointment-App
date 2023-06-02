@@ -58,7 +58,7 @@ public class UserDetailsServiceImpl implements UserService {
 	@Override
 	public User save(UserRegistrationDto registrationDto) {
 		  String hashedPassword = passwordEncoder.encode(registrationDto.getPassword());
-		User user = new User(registrationDto.getUsername(),hashedPassword, registrationDto.getRole());
+		User user = new User(registrationDto.getUsername(),hashedPassword, registrationDto.getRole(),registrationDto.getSpeciality(),registrationDto.getAddress(),registrationDto.getNumber(),registrationDto.getBio());
 		return repo.save(user);
 	}
 
